@@ -1,0 +1,28 @@
+---
+const path = Astro.url.pathname;
+const links = [
+  { href: '/', label: 'Home' },
+  { href: '/blog/', label: 'Blog' },
+  { href: '/projects/', label: 'Projects' },
+  { href: '/about/', label: 'About' },
+  { href: '/contact/', label: 'Contact' },
+];
+const isActive = (href: string) =>
+  href === '/' ? path === '/' : path.startsWith(href);
+---
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/" aria-label="truongnguyen.io home">
+      <span class="logo-mark">T</span>
+      <span class="logo-text">truongnguyen.io</span>
+    </a>
+    <nav class="nav" aria-label="Main navigation">
+      {links.map((l) => (
+        <a href={l.href} class={isActive(l.href) ? 'active' : ''} aria-current={isActive(l.href) ? 'page' : undefined}>
+          {l.label}
+        </a>
+      ))}
+    </nav>
+  </div>
+</header>
