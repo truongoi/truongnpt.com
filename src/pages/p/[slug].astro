@@ -1,0 +1,73 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = (await getCollection('posts', ({ data }) => !data.draft))
+    .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+  return posts.map((post, i) => ({
+    params: { slug: post.id },
+    props: {
+      post,
+      prev: i > 0 ? posts[i - 1] : null,
+      next: i < posts.length - 1 ? posts[i + 1] : null,
+    },
+  }));
+}
+
+const { post, prev, next } = Astro.props;
+const { Content } = await render(post);
+const date = post.data.pubDate.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<Base
+  title={post.data.title}
+  description={post.data.description}
+  image={post.data.heroImage}
+  type="article"
+  pubDate={post.data.pubDate}
+>
+  <article class="wrap wrap-narrow">
+    <header class="article-head">
+      <div class="meta">
+        <span class="badge badge-green">{date}</span>
+        {post.data.tags.map((t) => <span class="badge">{t}</span>)}
+      </div>
+      <h1>{post.data.title}</h1>
+      <p style="color: var(--muted); font-size: 1.1rem;">{post.data.description}</p>
+    </header>
+
+    {post.data.heroImage && (
+      <figure class="hero-image">
+        <img src={post.data.heroImage} alt={post.data.title} />
+      </figure>
+    )}
+
+    <div class="prose">
+      <Content />
+    </div>
+
+    <nav class="post-nav" aria-label="More posts">
+      {prev ? (
+        <a class="nb-card nb-card-hover" href={`/p/${prev.id}/`}>
+          <span class="label">← Newer</span>
+          <span class="title">{prev.data.title}</span>
+        </a>
+      ) : <span />}
+      {next ? (
+        <a class="nb-card nb-card-hover next" href={`/p/${next.id}/`}>
+          <span class="label">Older →</span>
+          <span class="title">{next.data.title}</span>
+        </a>
+      ) : <span />}
+    </nav>
+
+    <div style="text-align: center; margin: 2.5rem 0 1rem;">
+      <a class="btn" href="/blog/">← Back to all posts</a>
+    </div>
+  </article>
+</Base>
