@@ -1,0 +1,55 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+const date = project.data.pubDate.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<Base
+  title={project.data.title}
+  description={project.data.description}
+  image={project.data.heroImage}
+  type="article"
+  pubDate={project.data.pubDate}
+>
+  <article class="wrap wrap-narrow">
+    <header class="article-head">
+      <div class="meta">
+        <span class="badge badge-blue">Project</span>
+        <span class="badge">{date}</span>
+      </div>
+      <h1>{project.data.title}</h1>
+      {project.data.subtitle && (
+        <p style="color: var(--muted); font-size: 1.1rem;">{project.data.subtitle}</p>
+      )}
+    </header>
+
+    {project.data.heroImage && (
+      <figure class="hero-image">
+        <img src={project.data.heroImage} alt={project.data.title} />
+      </figure>
+    )}
+
+    <div class="prose">
+      <Content />
+    </div>
+
+    <div style="text-align: center; margin: 2.5rem 0 1rem;">
+      <a class="btn" href="/projects/">← Back to projects</a>
+    </div>
+  </article>
+</Base>
