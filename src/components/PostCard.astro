@@ -1,0 +1,33 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  post: CollectionEntry<'posts'>;
+}
+
+const { post } = Astro.props;
+const date = post.data.pubDate.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric',
+});
+---
+
+<a class="nb-card nb-card-hover post-card" href={`/p/${post.id}/`}>
+  {post.data.heroImage && (
+    <div class="thumb">
+      <img src={post.data.heroImage} alt={post.data.title} loading="lazy" />
+    </div>
+  )}
+  <div class="card-body">
+    <div class="meta">
+      <span class="badge badge-green">{date}</span>
+      {post.data.tags.slice(0, 2).map((t) => (
+        <span class="badge">{t}</span>
+      ))}
+    </div>
+    <h3>{post.data.title}</h3>
+    <p class="excerpt">{post.data.description}</p>
+    <span class="read-more">Read post <span class="arrow">→</span></span>
+  </div>
+</a>
