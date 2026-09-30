@@ -1,0 +1,49 @@
+---
+import Base from '../layouts/Base.astro';
+
+const links = [
+  { label: 'Website', sub: 'truongnguyen.io', href: '/', badge: '🏠', color: 'btn-green' },
+  { label: 'LinkedIn', sub: 'truong-nguyen-dev', href: 'https://www.linkedin.com/in/truong-nguyen-dev/', badge: '💼', color: 'btn-blue' },
+  { label: 'Twitter / X', sub: '@truongoi', href: 'https://x.com/truongoi', badge: '🐦', color: '' },
+  { label: 'GitHub', sub: 'truongoi', href: 'https://github.com/truongoi', badge: '💻', color: '' },
+  { label: 'CodePen', sub: 'truongoi', href: 'https://codepen.io/truongoi', badge: '🖊️', color: '' },
+  { label: 'Email', sub: 'say hello', href: 'mailto:truong.inbox@gmail.com?subject=Hello', badge: '✉️', color: 'btn-yellow' },
+];
+---
+
+<Base
+  title="Profile links"
+  description="All of Truong Nguyen's links in one place."
+>
+  <section class="page-hero" style="text-align: center;">
+    <div class="wrap wrap-narrow">
+      <img
+        src="/images/avatar@2x.png"
+        alt="Truong Nguyen"
+        width="120"
+        height="120"
+        style="border: 3px solid var(--ink); border-radius: 50%; box-shadow: var(--shadow-sm); margin-bottom: 1rem;"
+      />
+      <h1 style="margin-bottom: 0.3rem;">Truong Nguyen</h1>
+      <p class="lede" style="margin: 0 auto;">Front-end Engineer · all my links 👇</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top: 1rem;">
+    <div class="wrap wrap-narrow" style="max-width: 520px; display: flex; flex-direction: column; gap: 1rem;">
+      {links.map((l) => (
+        <a
+          class={`btn ${l.color}`}
+          href={l.href}
+          target={l.href.startsWith('http') ? '_blank' : undefined}
+          rel={l.href.startsWith('http') ? 'noopener' : undefined}
+          style="justify-content: flex-start; padding: 1em 1.4em; font-size: 1.05rem;"
+        >
+          <span style="font-size: 1.3em;">{l.badge}</span>
+          <span>{l.label}</span>
+          <span style="margin-left: auto; font-family: var(--font-mono); font-size: 0.75rem; font-weight: 400; opacity: 0.75;">{l.sub}</span>
+        </a>
+      ))}
+    </div>
+  </section>
+</Base>
