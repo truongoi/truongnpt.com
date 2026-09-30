@@ -1,0 +1,22 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  title="Page not found"
+  description="This page doesn't exist."
+>
+  <section class="notfound">
+    <div class="wrap">
+      <div class="big">404</div>
+      <h1>Oops — lost in the sauce</h1>
+      <p style="color: var(--muted); margin-bottom: 2rem;">
+        The page you're looking for doesn't exist (or moved).
+      </p>
+      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <a class="btn btn-green" href="/">← Back home</a>
+        <a class="btn" href="/blog/">Browse the blog</a>
+      </div>
+    </div>
+  </section>
+</Base>
