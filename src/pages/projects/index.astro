@@ -1,0 +1,46 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const projects = (await getCollection('projects'))
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+---
+
+<Base
+  title="Projects"
+  description="Projects by Truong Nguyen."
+>
+  <section class="page-hero">
+    <div class="wrap">
+      <span class="badge badge-blue">🛠️ Work</span>
+      <h1><span class="highlight">Projects</span></h1>
+      <p class="lede">Things I've built and worked on.</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top: 0.5rem;">
+    <div class="wrap">
+      {projects.length === 0 ? (
+        <div class="nb-card"><p>More projects coming soon.</p></div>
+      ) : (
+        <div class="project-grid">
+          {projects.map((p) => (
+            <a class="nb-card nb-card-hover post-card" href={`/prj/${p.id}/`}>
+              {p.data.heroImage && (
+                <div class="thumb">
+                  <img src={p.data.heroImage} alt={p.data.title} loading="lazy" />
+                </div>
+              )}
+              <div class="card-body">
+                <div class="meta"><span class="badge badge-blue">Project</span></div>
+                <h3>{p.data.title}</h3>
+                <p class="excerpt">{p.data.description}</p>
+                <span class="read-more">View <span class="arrow">→</span></span>
+              </div>
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+</Base>
