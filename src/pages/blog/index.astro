@@ -1,0 +1,29 @@
+---
+import Base from '../../layouts/Base.astro';
+import PostCard from '../../components/PostCard.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('posts', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+---
+
+<Base
+  title="Blog"
+  description="All blog posts by Truong Nguyen — code, travel, photography and life."
+>
+  <section class="page-hero">
+    <div class="wrap">
+      <span class="badge badge-green">✍️ Writing</span>
+      <h1>The <span class="highlight">Blog</span></h1>
+      <p class="lede">Thoughts, notes and stories — {posts.length} posts and counting.</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top: 0.5rem;">
+    <div class="wrap">
+      <div class="post-grid">
+        {posts.map((post) => <PostCard post={post} />)}
+      </div>
+    </div>
+  </section>
+</Base>
