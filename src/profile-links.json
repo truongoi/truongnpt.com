@@ -1,7 +1,7 @@
 {
   "name": "Truong Nguyen",
   "tagline": "Front-end Engineer · all my links 👇",
-  "avatar": "/images/avatar@2x.png",
+  "avatar": "/images/IMG_5904.jpeg",
   "links": [
     {
       "label": "Website",
@@ -37,13 +37,6 @@
       "href": "https://codepen.io/truongoi",
       "badge": "🖊️",
       "color": ""
-    },
-    {
-      "label": "Email",
-      "sub": "say hello",
-      "href": "mailto:truong.inbox@gmail.com?subject=Hello",
-      "badge": "✉️",
-      "color": "btn-yellow"
     }
   ]
 }
