@@ -7,6 +7,7 @@ backend:
   name: github
   repo: truongoi/truongnpt.com
   branch: main
+  base_url: https://sveltia-cms-auth.truong-inbox.workers.dev
 
 media_folder: public/images
 public_folder: /images
