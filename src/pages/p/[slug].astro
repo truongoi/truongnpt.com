@@ -38,7 +38,6 @@ const date = post.data.pubDate.toLocaleDateString('en-US', {
         {post.data.tags.map((t) => <span class="badge">{t}</span>)}
       </div>
       <h1>{post.data.title}</h1>
-      <p style="color: var(--muted); font-size: 1.1rem;">{post.data.description}</p>
     </header>
 
     {post.data.heroImage && (
