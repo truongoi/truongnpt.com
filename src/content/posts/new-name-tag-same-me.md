@@ -2,7 +2,7 @@
 title: New name tag, same me
 description: Joined the Costco team back in June and passed probation in September. A new chapter, a fresh start — trusting the hard work pays off.
 pubDate: 2026-09-30
-heroImage: ''
+heroImage: /images/posts/new-beginnings.webp
 tags:
   - Costco
 draft: false
