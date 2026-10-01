@@ -1,4 +1,7 @@
 ---
+import settings from '../site-settings.json';
+
+const siteConfig = { showProjects: settings.showProjects ?? true };
 const year = new Date().getFullYear();
 ---
 
@@ -15,7 +18,7 @@ const year = new Date().getFullYear();
       <h4>Explore</h4>
       <ul>
         <li><a href="/blog/">Blog</a></li>
-        <li><a href="/projects/">Projects</a></li>
+        {siteConfig.showProjects && <li><a href="/projects/">Projects</a></li>}
         <li><a href="/about/">About</a></li>
         <li><a href="/contact/">Contact</a></li>
         <li><a href="/links/">Profile links</a></li>

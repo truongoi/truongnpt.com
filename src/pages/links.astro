@@ -1,31 +1,25 @@
 ---
-import Base from '../layouts/Base.astro';
+import Bare from '../layouts/Bare.astro';
+import data from '../profile-links.json';
 
-const links = [
-  { label: 'Website', sub: 'truongnpt.com', href: '/', badge: '🏠', color: 'btn-green' },
-  { label: 'LinkedIn', sub: 'truong-nguyen-dev', href: 'https://www.linkedin.com/in/truong-nguyen-dev/', badge: '💼', color: 'btn-blue' },
-  { label: 'Twitter / X', sub: '@truongoi', href: 'https://x.com/truongoi', badge: '🐦', color: '' },
-  { label: 'GitHub', sub: 'truongoi', href: 'https://github.com/truongoi', badge: '💻', color: '' },
-  { label: 'CodePen', sub: 'truongoi', href: 'https://codepen.io/truongoi', badge: '🖊️', color: '' },
-  { label: 'Email', sub: 'say hello', href: 'mailto:truong.inbox@gmail.com?subject=Hello', badge: '✉️', color: 'btn-yellow' },
-];
+const links = data.links;
 ---
 
-<Base
+<Bare
   title="Profile links"
   description="All of Truong Nguyen's links in one place."
 >
   <section class="page-hero" style="text-align: center;">
     <div class="wrap wrap-narrow">
       <img
-        src="/images/avatar@2x.png"
-        alt="Truong Nguyen"
+        src={data.avatar}
+        alt={data.name}
         width="120"
         height="120"
         style="border: 3px solid var(--ink); border-radius: 50%; box-shadow: var(--shadow-sm); margin-bottom: 1rem;"
       />
-      <h1 style="margin-bottom: 0.3rem;">Truong Nguyen</h1>
-      <p class="lede" style="margin: 0 auto;">Front-end Engineer · all my links 👇</p>
+      <h1 style="margin-bottom: 0.3rem;">{data.name}</h1>
+      <p class="lede" style="margin: 0 auto;">{data.tagline}</p>
     </div>
   </section>
 
@@ -46,4 +40,4 @@ const links = [
       ))}
     </div>
   </section>
-</Base>
+</Bare>

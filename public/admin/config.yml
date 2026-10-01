@@ -77,3 +77,26 @@ collections:
         file: src/site-settings.json
         fields:
           - { label: "Show Projects section", name: showProjects, widget: boolean, default: true, hint: "Off hides the Projects nav link and homepage section" }
+      - name: profile_links
+        label: Profile Links
+        file: src/profile-links.json
+        fields:
+          - { label: Name, name: name, widget: string }
+          - { label: Tagline, name: tagline, widget: string, required: false }
+          - { label: Avatar, name: avatar, widget: image, required: false }
+          - label: Links
+            name: links
+            widget: list
+            fields:
+              - { label: Label, name: label, widget: string }
+              - { label: Subtitle, name: sub, widget: string, required: false }
+              - { label: URL, name: href, widget: string }
+              - { label: Icon (emoji), name: badge, widget: string, required: false }
+              - label: Color
+                name: color
+                widget: select
+                options:
+                  - { label: Default, value: "" }
+                  - { label: Green, value: btn-green }
+                  - { label: Blue, value: btn-blue }
+                  - { label: Yellow, value: btn-yellow }
