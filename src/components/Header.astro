@@ -1,5 +1,6 @@
 ---
-import { siteConfig } from '../site.config';
+import settings from '../site-settings.json';
+const siteConfig = { showProjects: settings.showProjects ?? true };
 const path = Astro.url.pathname;
 const links = [
   { href: '/', label: 'Home' },

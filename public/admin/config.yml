@@ -1,0 +1,71 @@
+# Sveltia CMS configuration — admin lives at https://truongnpt.com/admin/
+# Sign in with a GitHub personal access token ("Sign In with Token").
+
+backend:
+  name: github
+  repo: truongoi/truongnpt.com
+  branch: main
+
+media_folder: public/images/uploads
+public_folder: /images/uploads
+
+collections:
+  - name: posts
+    label: Posts
+    folder: src/content/posts
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    format: frontmatter
+    editor:
+      preview: false
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Description, name: description, widget: text }
+      - { label: Publish Date, name: pubDate, widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+      - { label: Hero Image, name: heroImage, widget: image, required: false }
+      - { label: Tags, name: tags, widget: list, required: false }
+      - { label: Draft, name: draft, widget: boolean, default: false, hint: "On hides this from the site" }
+      - { label: Body, name: body, widget: markdown }
+
+  - name: projects
+    label: Projects
+    folder: src/content/projects
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    format: frontmatter
+    editor:
+      preview: false
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Description, name: description, widget: text }
+      - { label: Publish Date, name: pubDate, widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+      - { label: Subtitle, name: subtitle, widget: string, required: false }
+      - { label: Hero Image, name: heroImage, widget: image, required: false }
+      - { label: Draft, name: draft, widget: boolean, default: false, hint: "On hides this from the site" }
+      - { label: Body, name: body, widget: markdown }
+
+  - name: pages
+    label: Pages
+    folder: src/content/pages
+    create: false
+    extension: md
+    format: frontmatter
+    editor:
+      preview: false
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Description, name: description, widget: text }
+      - { label: Body, name: body, widget: markdown }
+
+  - name: settings
+    label: Site Settings
+    files:
+      - name: general
+        label: General
+        file: src/site-settings.json
+        editor:
+          preview: false
+        fields:
+          - { label: "Show Projects section", name: showProjects, widget: boolean, default: true, hint: "Off hides the Projects nav link and homepage section" }
