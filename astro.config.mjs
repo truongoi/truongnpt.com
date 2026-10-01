@@ -3,7 +3,7 @@ import sitemap from '@astrojs/sitemap';
 
 // TODO: update `site` to the domain you deploy to
 export default defineConfig({
-  site: 'https://truongnguyen.io',
+  site: 'https://truongnpt.com',
   output: 'static',
   integrations: [sitemap()],
 });

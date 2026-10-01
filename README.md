@@ -1,4 +1,4 @@
-# truongnguyen.io — Astro rebuild
+# truongnpt.com — Astro rebuild
 
 Personal blog of Truong Nguyen, migrated from Jekyll ("Duet" theme) to
 [Astro](https://astro.build) with a neo-brutalist design (mint background,
@@ -81,7 +81,7 @@ npm run preview  # preview the production build
    - **Node version:** 20+ (set `NODE_VERSION=20` env var if needed)
 4. **Save and Deploy.** Every push to the production branch redeploys automatically.
 
-To use a custom domain (e.g. `truongnguyen.io`): Pages project →
+To use a custom domain (e.g. `truongnpt.com`): Pages project →
 **Custom domains** → **Set up a custom domain** → follow the DNS prompts
 (Cloudflare handles SSL automatically).
 

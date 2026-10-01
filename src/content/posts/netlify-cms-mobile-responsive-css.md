@@ -17,10 +17,10 @@ Screenshots for your reference:
 <div class="row center-xs">
   <div class="col-xs-8 col-sm-6 col-md-4 col-lg-3">
     <div class="gallery" data-columns="1">
-      <img src="/images/posts/truongnguyen.io_admin_(iPhone 6_7_8).png">
-      <img src="/images/posts/truongnguyen.io_admin_(iPhone 6_7_8) (1).png">
-      <img src="/images/posts/truongnguyen.io_admin_(iPhone 6_7_8) (2).png">
-      <img src="/images/posts/truongnguyen.io_admin_(iPhone 6_7_8) (3).png">
+      <img src="/images/posts/truongnpt.com_admin_(iPhone 6_7_8).png">
+      <img src="/images/posts/truongnpt.com_admin_(iPhone 6_7_8) (1).png">
+      <img src="/images/posts/truongnpt.com_admin_(iPhone 6_7_8) (2).png">
+      <img src="/images/posts/truongnpt.com_admin_(iPhone 6_7_8) (3).png">
     </div>
   </div>
 </div>

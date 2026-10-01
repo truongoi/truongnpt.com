@@ -6,7 +6,7 @@ export async function GET(context) {
     .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
 
   return rss({
-    title: 'truongnguyen.io',
+    title: 'truongnpt.com',
     description: 'Personal blog of Truong Nguyen — front-end engineer.',
     site: context.site,
     items: posts.map((post) => ({
