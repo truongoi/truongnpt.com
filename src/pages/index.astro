@@ -15,29 +15,28 @@ const projects = (await getCollection('projects', ({ data }) => !data.draft))
 ---
 
 <Base
-  title="truongnpt.com"
-  description="Personal blog of Truong Nguyen — front-end engineer. Thoughts on code, travel, photography and life."
+  title={settings.siteTitle}
+  description={settings.siteDescription}
   image="/images/og-image.jpg"
 >
   <section class="hero">
     <div class="wrap hero-grid">
       <div>
         <div class="hero-eyebrow">
-          <span class="badge badge-blue">👋 Hello, I'm</span>
+          <span class="badge badge-blue">{settings.heroEyebrow}</span>
         </div>
-        <h1>Truong <span class="highlight">Nguyen</span></h1>
+        <h1>{settings.heroName} <span class="highlight">{settings.heroNameHighlight}</span></h1>
         <p class="lead">
-          Front-end engineer, ex-Ogilvy Vietnam. I write about code, travel,
-          photography and life — in English and Vietnamese.
+          {settings.heroLead}
         </p>
         <div class="hero-cta">
-          <a class="btn btn-green" href="/blog/">Read the blog →</a>
-          <a class="btn" href="/about/">About me</a>
+          <a class="btn btn-green" href={settings.heroCtaPrimaryHref}>{settings.heroCtaPrimaryLabel}</a>
+          <a class="btn" href={settings.heroCtaSecondaryHref}>{settings.heroCtaSecondaryLabel}</a>
         </div>
       </div>
       <figure class="avatar-card">
-        <img src="/images/avatar@2x.png" alt="Truong Nguyen" width="680" height="680" />
-        <figcaption>that's me ✌️</figcaption>
+        <img src={settings.heroImage} alt={settings.heroName} width="680" height="680" />
+        <figcaption>{settings.heroCaption}</figcaption>
       </figure>
     </div>
   </section>
@@ -87,11 +86,11 @@ const projects = (await getCollection('projects', ({ data }) => !data.draft))
   <section class="section">
     <div class="wrap wrap-narrow">
       <div class="nb-card" style="text-align: center; padding: 2.5rem 2rem;">
-        <h2 style="margin-bottom: 0.5em;">Say hello 👋</h2>
+        <h2 style="margin-bottom: 0.5em;">{settings.ctaTitle}</h2>
         <p style="color: var(--muted); margin-bottom: 1.5rem;">
-          Questions, collabs, or just want to chat? My inbox is open.
+          {settings.ctaText}
         </p>
-        <a class="btn btn-blue" href="/contact/">Get in touch</a>
+        <a class="btn btn-blue" href={settings.ctaButtonHref}>{settings.ctaButtonLabel}</a>
       </div>
     </div>
   </section>

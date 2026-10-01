@@ -1,4 +1,6 @@
 ---
+import settings from '../site-settings.json';
+
 interface Props {
   title: string;
   description: string;
@@ -11,7 +13,8 @@ const { title, description, image, type = 'website', pubDate } = Astro.props;
 const site = Astro.site?.toString().replace(/\/$/, '') ?? '';
 const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://truongnpt.com').toString();
 const ogImage = image ? new URL(image, Astro.site ?? 'https://truongnpt.com').toString() : undefined;
-const fullTitle = title === 'truongnpt.com' ? title : `${title} — truongnpt.com`;
+const siteTitle = settings.siteTitle;
+const fullTitle = title === siteTitle ? title : `${title} — ${siteTitle}`;
 ---
 
 <meta charset="utf-8" />
@@ -22,7 +25,7 @@ const fullTitle = title === 'truongnpt.com' ? title : `${title} — truongnpt.co
 
 <!-- Open Graph -->
 <meta property="og:type" content={type} />
-<meta property="og:site_name" content="truongnpt.com" />
+<meta property="og:site_name" content={siteTitle} />
 <meta property="og:title" content={fullTitle} />
 <meta property="og:description" content={description} />
 <meta property="og:url" content={canonical} />
@@ -39,7 +42,7 @@ const fullTitle = title === 'truongnpt.com' ? title : `${title} — truongnpt.co
 )}
 
 <link rel="icon" type="image/png" href="/images/favicon.png" />
-<link rel="alternate" type="application/rss+xml" title="truongnpt.com RSS" href={new URL('rss.xml', Astro.site ?? 'https://truongnpt.com').toString()} />
+<link rel="alternate" type="application/rss+xml" title={`${siteTitle} RSS`} href={new URL('rss.xml', Astro.site ?? 'https://truongnpt.com').toString()} />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

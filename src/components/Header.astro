@@ -15,9 +15,9 @@ const isActive = (href: string) =>
 
 <header class="site-header">
   <div class="wrap">
-    <a class="logo" href="/" aria-label="truongnpt.com home">
-      <span class="logo-mark">T</span>
-      <span class="logo-text">truongnpt.com</span>
+    <a class="logo" href="/" aria-label={`${settings.logoText} home`}>
+      <span class="logo-mark">{settings.logoMark}</span>
+      <span class="logo-text">{settings.logoText}</span>
     </a>
     <nav class="nav" aria-label="Main navigation">
       {links.map((l) => (

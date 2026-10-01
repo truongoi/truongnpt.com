@@ -8,10 +8,9 @@ const year = new Date().getFullYear();
 <footer class="site-footer">
   <div class="wrap">
     <div>
-      <h4>truongnpt.com</h4>
+      <h4>{settings.logoText}</h4>
       <p>
-        Personal blog of Truong Nguyen — front-end engineer. Thoughts on code,
-        travel, photography and life, in English and Vietnamese.
+        {settings.footerAbout}
       </p>
     </div>
     <div>
@@ -19,24 +18,23 @@ const year = new Date().getFullYear();
       <ul>
         <li><a href="/blog/">Blog</a></li>
         {siteConfig.showProjects && <li><a href="/projects/">Projects</a></li>}
-        <li><a href="/about/">About</a></li>
-        <li><a href="/contact/">Contact</a></li>
-        <li><a href="/links/">Profile links</a></li>
+        {settings.footerExploreLinks.map((l) => (
+          <li><a href={l.href}>{l.label}</a></li>
+        ))}
       </ul>
     </div>
     <div>
       <h4>Elsewhere</h4>
       <ul>
-        <li><a href="https://www.linkedin.com/in/truong-nguyen-dev/" target="_blank" rel="noopener">LinkedIn</a></li>
-        <li><a href="https://codepen.io/truongoi" target="_blank" rel="noopener">CodePen</a></li>
-        <li><a href="https://github.com/truongoi" target="_blank" rel="noopener">GitHub</a></li>
-        <li><a href="/rss.xml">RSS feed</a></li>
+        {settings.footerSocialLinks.map((l) => (
+          <li><a href={l.href} target={l.href.startsWith('http') ? '_blank' : undefined} rel={l.href.startsWith('http') ? 'noopener' : undefined}>{l.label}</a></li>
+        ))}
       </ul>
     </div>
   </div>
   <div class="footer-bottom">
     <div class="wrap">
-      <span>© {year} Truong Nguyen</span>
+      <span>© {year} {settings.heroName} {settings.heroNameHighlight}</span>
       <span>Built with Astro · <a href="/privacy-policy/">Privacy</a></span>
     </div>
   </div>

@@ -77,6 +77,38 @@ collections:
         file: src/site-settings.json
         fields:
           - { label: "Show Projects section", name: showProjects, widget: boolean, default: true, hint: "Off hides the Projects nav link and homepage section" }
+          - { label: Site Title, name: siteTitle, widget: string, hint: "Browser tab, logo, page titles" }
+          - { label: Site Description, name: siteDescription, widget: text, hint: "Default meta description for Google" }
+          - { label: Logo Mark, name: logoMark, widget: string, hint: "The letter in the logo box" }
+          - { label: Logo Text, name: logoText, widget: string }
+          - { label: Hero Eyebrow, name: heroEyebrow, widget: string }
+          - { label: Hero Name, name: heroName, widget: string }
+          - { label: Hero Name Highlight, name: heroNameHighlight, widget: string, hint: "Highlighted in green" }
+          - { label: Hero Lead, name: heroLead, widget: text }
+          - { label: Hero Image, name: heroImage, widget: image, required: false }
+          - { label: Hero Caption, name: heroCaption, widget: string, required: false }
+          - { label: Primary Button Label, name: heroCtaPrimaryLabel, widget: string }
+          - { label: Primary Button Link, name: heroCtaPrimaryHref, widget: string }
+          - { label: Secondary Button Label, name: heroCtaSecondaryLabel, widget: string }
+          - { label: Secondary Button Link, name: heroCtaSecondaryHref, widget: string }
+          - { label: CTA Title, name: ctaTitle, widget: string, hint: "The 'Say hello' card on the homepage" }
+          - { label: CTA Text, name: ctaText, widget: text }
+          - { label: CTA Button Label, name: ctaButtonLabel, widget: string }
+          - { label: CTA Button Link, name: ctaButtonHref, widget: string }
+          - { label: Footer About, name: footerAbout, widget: text }
+          - label: Footer Explore Links
+            name: footerExploreLinks
+            widget: list
+            hint: "Blog and Projects links are added automatically"
+            fields:
+              - { label: Label, name: label, widget: string }
+              - { label: URL, name: href, widget: string }
+          - label: Footer Social Links
+            name: footerSocialLinks
+            widget: list
+            fields:
+              - { label: Label, name: label, widget: string }
+              - { label: URL, name: href, widget: string }
       - name: profile_links
         label: Profile Links
         file: src/profile-links.json
