@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import settings from '../site-settings.json';
 ---
 
 <Base
@@ -21,7 +22,7 @@ import Base from '../layouts/Base.astro';
           class="nb-form"
           id="contact-form"
           method="post"
-          action="https://formspree.io/xrgawwgw"
+          action={settings.contactFormEndpoint}
         >
           <div class="field">
             <label for="cf-email">Email Address <span class="req">*</span></label>

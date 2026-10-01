@@ -79,6 +79,7 @@ collections:
           - { label: "Show Projects section", name: showProjects, widget: boolean, default: true, hint: "Off hides the Projects nav link and homepage section" }
           - { label: Site Title, name: siteTitle, widget: string, hint: "Browser tab, logo, page titles" }
           - { label: Site Description, name: siteDescription, widget: text, hint: "Default meta description for Google" }
+          - { label: Contact Form Endpoint, name: contactFormEndpoint, widget: string, hint: "Formspree endpoint, e.g. https://formspree.io/f/xxxx" }
           - { label: Logo Mark, name: logoMark, widget: string, hint: "The letter in the logo box" }
           - { label: Logo Text, name: logoText, widget: string }
           - { label: Hero Eyebrow, name: heroEyebrow, widget: string }
