@@ -21,6 +21,11 @@ collections:
     format: frontmatter
     media_folder: /public/images/posts
     public_folder: /images/posts
+    sortable_fields:
+      fields: [title, pubDate]
+      default:
+        field: pubDate
+        direction: descending
     fields:
       - { label: Title, name: title, widget: string }
       - { label: Description, name: description, widget: text }
@@ -39,6 +44,11 @@ collections:
     format: frontmatter
     media_folder: /public/images/projects
     public_folder: /images/projects
+    sortable_fields:
+      fields: [title, pubDate]
+      default:
+        field: pubDate
+        direction: descending
     fields:
       - { label: Title, name: title, widget: string }
       - { label: Description, name: description, widget: text }
