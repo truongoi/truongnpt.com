@@ -490,7 +490,7 @@ h1, h2, h3, h4 {
 /* ============ RESPONSIVE ============ */
 @media (max-width: 820px) {
   .hero-grid { grid-template-columns: 1fr; }
-  .avatar-card { justify-self: start; transform: rotate(0); }
+  .avatar-card { justify-self: center; transform: rotate(0); }
   .site-footer .wrap { grid-template-columns: 1fr 1fr; }
   .post-nav { grid-template-columns: 1fr; }
   .post-nav .next { text-align: left; }
