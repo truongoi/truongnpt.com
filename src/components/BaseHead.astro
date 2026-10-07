@@ -5,16 +5,52 @@ interface Props {
   title: string;
   description: string;
   image?: string;
+  imageWidth?: number;
+  imageHeight?: number;
+  imageAlt?: string;
   type?: 'website' | 'article';
   pubDate?: Date;
 }
 
-const { title, description, image, type = 'website', pubDate } = Astro.props;
+const {
+  title,
+  description,
+  image,
+  imageWidth = 1200,
+  imageHeight = 630,
+  imageAlt,
+  type = 'website',
+  pubDate,
+} = Astro.props;
 const site = Astro.site?.toString().replace(/\/$/, '') ?? '';
 const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://truongnpt.com').toString();
 const ogImage = image ? new URL(image, Astro.site ?? 'https://truongnpt.com').toString() : undefined;
 const siteTitle = settings.siteTitle;
-const fullTitle = title === siteTitle ? title : `${title} — ${siteTitle}`;
+const fullTitle = title === siteTitle || title.startsWith(siteTitle) ? title : `${title} — ${siteTitle}`;
+const ogAlt = imageAlt ?? `${fullTitle} — ${description}`;
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      name: siteTitle,
+      url: site || 'https://truongnpt.com',
+      description,
+      inLanguage: 'en-US',
+    },
+    {
+      '@type': 'Person',
+      name: 'Truong Nguyen',
+      url: site || 'https://truongnpt.com',
+      jobTitle: 'Front-end engineer',
+      sameAs: [
+        'https://github.com/truongoi',
+        'https://www.linkedin.com/in/truong-nguyen-dev/',
+        'https://codepen.io/truongoi',
+      ],
+    },
+  ],
+};
 ---
 
 <meta charset="utf-8" />
@@ -22,26 +58,40 @@ const fullTitle = title === siteTitle ? title : `${title} — ${siteTitle}`;
 <title>{fullTitle}</title>
 <meta name="description" content={description} />
 <link rel="canonical" href={canonical} />
+<meta name="theme-color" content="#E9F5EE" />
 
 <!-- Open Graph -->
 <meta property="og:type" content={type} />
 <meta property="og:site_name" content={siteTitle} />
+<meta property="og:locale" content="en_US" />
 <meta property="og:title" content={fullTitle} />
 <meta property="og:description" content={description} />
 <meta property="og:url" content={canonical} />
 {ogImage && <meta property="og:image" content={ogImage} />}
+{ogImage && <meta property="og:image:width" content={String(imageWidth)} />}
+{ogImage && <meta property="og:image:height" content={String(imageHeight)} />}
+{ogImage && <meta property="og:image:alt" content={ogAlt} />}
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={fullTitle} />
 <meta name="twitter:description" content={description} />
 {ogImage && <meta name="twitter:image" content={ogImage} />}
+{ogImage && <meta name="twitter:image:alt" content={ogAlt} />}
 
 {type === 'article' && pubDate && (
   <meta property="article:published_time" content={pubDate.toISOString()} />
 )}
 
-<link rel="icon" type="image/png" href="/images/favicon.png" />
+<!-- Structured data -->
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+<!-- Icons -->
+<link rel="icon" type="image/svg+xml" href="/images/favicons/favicon.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicons/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicons/favicon-16x16.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-touch-icon.png" />
+<link rel="manifest" href="/site.webmanifest" />
 <link rel="alternate" type="application/rss+xml" title={`${siteTitle} RSS`} href={new URL('rss.xml', Astro.site ?? 'https://truongnpt.com').toString()} />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />

@@ -1,0 +1,12 @@
+{
+  "name": "Truong Nguyen",
+  "short_name": "Truong Nguyen",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#E9F5EE",
+  "theme_color": "#E9F5EE",
+  "icons": [
+    { "src": "/images/favicons/favicon-192x192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/images/favicons/favicon-512x512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
