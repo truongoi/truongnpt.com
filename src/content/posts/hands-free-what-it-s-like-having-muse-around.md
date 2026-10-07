@@ -31,3 +31,5 @@ My rules, in my words: **"No more guessing"** — diagnose first, fix once. **"D
 Here's what I've learned: the technology is the least interesting part. It's the accumulated context — a thousand tiny interactions — that makes him useful. He knows how I work, and he knows when to stay quiet.
 
 Don't ask what an AI assistant can do. Tell it who you are, correct it when it's wrong, and give it something real to take off your plate. The first week is setup. After that, it's someone who never sleeps, never forgets, and types "done" while you're still putting your shoes on.
+
+Don't forgot last step: use my code, we both get 1B tokens! **YRR3RC**
