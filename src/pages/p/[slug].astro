@@ -50,6 +50,88 @@ const date = post.data.pubDate.toLocaleDateString('en-US', {
       <Content />
     </div>
 
+    <section class="comments" id="comments" data-slug={post.id}>
+      <h2>Comments <span class="comments-count"></span></h2>
+      <div class="comments-list"><p class="comments-loading">Loading…</p></div>
+      <form class="comment-form">
+        <h3>Leave a comment</h3>
+        <label class="field">Name
+          <input name="name" required maxlength="60" autocomplete="name" />
+        </label>
+        <label class="field hp" aria-hidden="true">Website
+          <input name="website" tabindex="-1" autocomplete="off" />
+        </label>
+        <label class="field">Comment
+          <textarea name="body" required maxlength="2000" rows="4"></textarea>
+        </label>
+        <button class="btn" type="submit">Post comment</button>
+        <p class="form-note">Comments are moderated — yours will appear after approval.</p>
+        <p class="form-msg" hidden></p>
+      </form>
+    </section>
+    <script is:inline>
+      (function () {
+        var sec = document.getElementById('comments');
+        if (!sec) return;
+        var slug = sec.dataset.slug;
+        var list = sec.querySelector('.comments-list');
+        function render(comments) {
+          list.innerHTML = '';
+          var count = sec.querySelector('.comments-count');
+          if (count) count.textContent = '(' + comments.length + ')';
+          if (!comments.length) {
+            list.innerHTML = '<p class="no-comments">No comments yet — be the first.</p>';
+            return;
+          }
+          comments.forEach(function (c) {
+            var div = document.createElement('div');
+            div.className = 'comment';
+            var head = document.createElement('div');
+            head.className = 'comment-head';
+            var name = document.createElement('strong');
+            name.textContent = c.name;
+            var date = document.createElement('span');
+            date.className = 'comment-date';
+            date.textContent = new Date(c.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+            head.appendChild(name);
+            head.appendChild(date);
+            var body = document.createElement('p');
+            body.textContent = c.body;
+            div.appendChild(head);
+            div.appendChild(body);
+            list.appendChild(div);
+          });
+        }
+        fetch('/api/comments?slug=' + encodeURIComponent(slug))
+          .then(function (r) { return r.json(); })
+          .then(function (d) { render(d.comments || []); })
+          .catch(function () { list.innerHTML = '<p class="no-comments">Could not load comments.</p>'; });
+        var form = sec.querySelector('.comment-form');
+        var msg = sec.querySelector('.form-msg');
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          msg.hidden = true;
+          var fd = new FormData(form);
+          fetch('/api/comments', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ slug: slug, name: fd.get('name'), body: fd.get('body'), website: fd.get('website') }),
+          })
+            .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+            .then(function (res) {
+              if (res.ok) {
+                form.reset();
+                msg.textContent = 'Thanks! Your comment is awaiting moderation.';
+              } else {
+                msg.textContent = res.d.error || 'Something went wrong.';
+              }
+              msg.hidden = false;
+            })
+            .catch(function () { msg.textContent = 'Something went wrong.'; msg.hidden = false; });
+        });
+      })();
+    </script>
+
     <nav class="post-nav" aria-label="More posts">
       {prev ? (
         <a class="nb-card nb-card-hover" href={`/p/${prev.id}/`}>
