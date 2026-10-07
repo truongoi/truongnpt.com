@@ -8,5 +8,66 @@
   </head>
   <body>
     <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js" type="module"></script>
+    <script type="module">
+      // "Image Slider" block for the Body composer: pick photos in a dialog,
+      // stores <div class="image-slider" data-slider> in the markdown, which the
+      // site renders as a swipeable slider (see Base.astro + global.css).
+      function register(attempts) {
+        if (window.CMS && window.CMS.registerEditorComponent) {
+          window.CMS.registerEditorComponent({
+            id: 'image-slider',
+            label: 'Image Slider',
+            icon: 'photo_library',
+            mode: 'dialog',
+            summary: '🖼️ Image slider',
+            fields: [
+              {
+                name: 'slides',
+                label: 'Slides',
+                widget: 'list',
+                fields: [
+                  { name: 'image', label: 'Image', widget: 'image' },
+                  { name: 'alt', label: 'Alt text', widget: 'string', required: false },
+                  { name: 'caption', label: 'Caption', widget: 'string', required: false },
+                ],
+              },
+            ],
+            pattern: /<div class="image-slider" data-slider>([\s\S]*?)<\/div>/,
+            fromBlock: function (match) {
+              var slides = [];
+              var re = /<img\s+src="([^"]+)"(?:\s+alt="([^"]*)")?(?:\s+data-caption="([^"]*)")?\s*\/?>/g;
+              var m;
+              while ((m = re.exec(match[1]))) {
+                slides.push({ image: m[1], alt: m[2] || '', caption: m[3] || '' });
+              }
+              return { slides: slides };
+            },
+            toBlock: function (data) {
+              var imgs = (data.slides || []).map(function (s) {
+                return (
+                  '<img src="' + s.image + '" alt="' + (s.alt || '') + '"' +
+                  (s.caption ? ' data-caption="' + s.caption + '"' : '') + '>'
+                );
+              }).join('\n');
+              return '<div class="image-slider" data-slider>\n' + imgs + '\n</div>';
+            },
+            toPreview: function (data) {
+              var slides = data.slides || [];
+              var thumbs = slides.map(function (s) {
+                return '<img src="' + s.image + '" style="width:72px;height:54px;object-fit:cover;border-radius:4px;margin:2px;" alt="">';
+              }).join('');
+              return (
+                '<div style="border:1px dashed #999;border-radius:8px;padding:8px;">' +
+                '🖼️ <strong>Image slider</strong> — ' + slides.length + ' photo(s)<br>' + thumbs +
+                '</div>'
+              );
+            },
+          });
+        } else if (attempts > 0) {
+          setTimeout(function () { register(attempts - 1); }, 300);
+        }
+      }
+      register(20);
+    </script>
   </body>
 </html>
