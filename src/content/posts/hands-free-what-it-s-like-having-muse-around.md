@@ -32,4 +32,4 @@ Here's what I've learned: the technology is the least interesting part. It's the
 
 Don't ask what an AI assistant can do. Tell it who you are, correct it when it's wrong, and give it something real to take off your plate. The first week is setup. After that, it's someone who never sleeps, never forgets, and types "done" while you're still putting your shoes on.
 
-Don't forgot last step: use my code, we both get 1B tokens! **YRR3RC**
+> Don't forgot last step: use my code, we both get 1B tokens! **YRR3RC**
