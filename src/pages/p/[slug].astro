@@ -75,7 +75,14 @@ const date = post.data.pubDate.toLocaleDateString('en-US', {
         if (!sec) return;
         var slug = sec.dataset.slug;
         var list = sec.querySelector('.comments-list');
-        function render(comments) {
+        function mod(action, id) {
+          fetch('/api/comments', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ action: action, id: id }),
+          }).then(function () { load(); });
+        }
+        function render(comments, isAdmin) {
           list.innerHTML = '';
           var count = sec.querySelector('.comments-count');
           if (count) count.textContent = '(' + comments.length + ')';
@@ -84,17 +91,49 @@ const date = post.data.pubDate.toLocaleDateString('en-US', {
             return;
           }
           comments.forEach(function (c) {
+            var pending = c.approved === 0;
             var div = document.createElement('div');
-            div.className = 'comment';
+            div.className = 'comment' + (pending ? ' pending' : '');
             var head = document.createElement('div');
             head.className = 'comment-head';
             var name = document.createElement('strong');
             name.textContent = c.name;
+            head.appendChild(name);
+            if (pending) {
+              var badge = document.createElement('span');
+              badge.className = 'pending-badge';
+              badge.textContent = 'pending';
+              head.appendChild(badge);
+            }
             var date = document.createElement('span');
             date.className = 'comment-date';
             date.textContent = new Date(c.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
-            head.appendChild(name);
             head.appendChild(date);
+            if (isAdmin) {
+              var tools = document.createElement('span');
+              tools.className = 'comment-tools';
+              if (pending) {
+                var ok = document.createElement('button');
+                ok.type = 'button';
+                ok.className = 'comment-tool approve';
+                ok.textContent = '✓';
+                ok.title = 'Approve';
+                ok.setAttribute('aria-label', 'Approve comment');
+                ok.addEventListener('click', function () { mod('approve', c.id); });
+                tools.appendChild(ok);
+              }
+              var del = document.createElement('button');
+              del.type = 'button';
+              del.className = 'comment-tool delete';
+              del.textContent = '×';
+              del.title = 'Delete';
+              del.setAttribute('aria-label', 'Delete comment');
+              del.addEventListener('click', function () {
+                if (window.confirm('Delete this comment?')) mod('delete', c.id);
+              });
+              tools.appendChild(del);
+              head.appendChild(tools);
+            }
             var body = document.createElement('p');
             body.textContent = c.body;
             div.appendChild(head);
@@ -102,10 +141,13 @@ const date = post.data.pubDate.toLocaleDateString('en-US', {
             list.appendChild(div);
           });
         }
-        fetch('/api/comments?slug=' + encodeURIComponent(slug))
-          .then(function (r) { return r.json(); })
-          .then(function (d) { render(d.comments || []); })
-          .catch(function () { list.innerHTML = '<p class="no-comments">Could not load comments.</p>'; });
+        function load() {
+          fetch('/api/comments?slug=' + encodeURIComponent(slug))
+            .then(function (r) { return r.json(); })
+            .then(function (d) { render(d.comments || [], !!d.admin); })
+            .catch(function () { list.innerHTML = '<p class="no-comments">Could not load comments.</p>'; });
+        }
+        load();
         var form = sec.querySelector('.comment-form');
         var msg = sec.querySelector('.form-msg');
         form.addEventListener('submit', function (e) {

@@ -16,6 +16,7 @@ interface D1Database {
 interface Env {
   COMMENTS_DB: D1Database;
   DINO_DB: D1Database;
+  COMMENTS_ADMIN_PASSWORD?: string;
 }
 type Ctx = { request: Request; env: Env };
 
@@ -36,6 +37,19 @@ async function hmacHex(key: string, msg: string): Promise<string> {
   );
   const sig = await crypto.subtle.sign('HMAC', k, new TextEncoder().encode(msg));
   return [...new Uint8Array(sig)].map((b) => b.toString(16).padStart(2, '0')).join('');
+}
+
+const ADMIN_COOKIE = 'blog_cadmin';
+function getCookie(request: Request, name: string): string {
+  const h = request.headers.get('cookie') || '';
+  const m = h.match(new RegExp('(?:^|;\\s*)' + name + '=([^;]*)'));
+  return m ? decodeURIComponent(m[1]) : '';
+}
+async function isAdmin(request: Request, env: Env): Promise<boolean> {
+  const pw = (env.COMMENTS_ADMIN_PASSWORD || '').trim();
+  if (!pw) return false;
+  const tok = getCookie(request, ADMIN_COOKIE);
+  return tok !== '' && tok === (await hmacHex(pw, 'comments-admin-v1'));
 }
 
 async function dinoSetting(db: D1Database, key: string): Promise<string> {
@@ -62,10 +76,19 @@ async function notifyNewComment(db: D1Database, title: string, message: string, 
 export const onRequestGet = async ({ request, env }: Ctx) => {
   const slug = (new URL(request.url).searchParams.get('slug') || '').slice(0, 200);
   if (!slug) return json({ error: 'missing slug' }, 400);
-  const { results } = await env.COMMENTS_DB.prepare(
-    'SELECT id, name, body, created_at FROM comments WHERE slug = ? AND approved = 1 ORDER BY created_at ASC LIMIT 200',
-  ).bind(slug).all<{ id: number; name: string; body: string; created_at: number }>();
-  return json({ comments: results });
+  const admin = await isAdmin(request, env);
+  const { results } = admin
+    ? await env.COMMENTS_DB.prepare(
+        'SELECT id, name, body, created_at, approved FROM comments WHERE slug = ? ORDER BY created_at ASC LIMIT 200',
+      )
+        .bind(slug)
+        .all<{ id: number; name: string; body: string; created_at: number; approved: number }>()
+    : await env.COMMENTS_DB.prepare(
+        'SELECT id, name, body, created_at FROM comments WHERE slug = ? AND approved = 1 ORDER BY created_at ASC LIMIT 200',
+      )
+        .bind(slug)
+        .all<{ id: number; name: string; body: string; created_at: number }>();
+  return json({ comments: results, admin });
 };
 
 export const onRequestPost = async ({ request, env }: Ctx) => {
@@ -74,6 +97,20 @@ export const onRequestPost = async ({ request, env }: Ctx) => {
     data = await request.json();
   } catch {
     return json({ error: 'bad request' }, 400);
+  }
+
+  // Admin inline moderation (from the post page; cookie-authenticated).
+  const action = String(data.action || '');
+  if (action === 'approve' || action === 'delete') {
+    if (!(await isAdmin(request, env))) return json({ error: 'forbidden' }, 403);
+    const id = String(data.id || '');
+    if (!/^\d+$/.test(id)) return json({ error: 'bad id' }, 400);
+    if (action === 'approve') {
+      await env.COMMENTS_DB.prepare('UPDATE comments SET approved = 1 WHERE id = ?').bind(id).run();
+    } else {
+      await env.COMMENTS_DB.prepare('DELETE FROM comments WHERE id = ?').bind(id).run();
+    }
+    return json({ ok: true });
   }
 
   // Honeypot: bots fill the hidden "website" field; pretend success, store nothing.
