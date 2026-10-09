@@ -1,13 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
-import PostCard from '../components/PostCard.astro';
 import { getCollection } from 'astro:content';
 import settings from '../site-settings.json';
 const siteConfig = { showProjects: settings.showProjects ?? true };
-
-const posts = (await getCollection('posts', ({ data }) => !data.draft))
-  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
-  .slice(0, 6);
 
 const projects = (await getCollection('projects', ({ data }) => !data.draft))
   .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
@@ -35,21 +30,9 @@ const projects = (await getCollection('projects', ({ data }) => !data.draft))
         </div>
       </div>
       <figure class="avatar-card">
-        <img src={settings.heroImage} alt={settings.heroName} width="680" height="680" />
+        <img src={settings.heroImage} alt={settings.heroName} width="800" height="800" />
         <figcaption>{settings.heroCaption}</figcaption>
       </figure>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="wrap">
-      <div class="section-head">
-        <h2><span class="tick"></span>Latest posts</h2>
-        <a class="btn btn-sm" href="/blog/">All posts →</a>
-      </div>
-      <div class="post-grid">
-        {posts.map((post) => <PostCard post={post} />)}
-      </div>
     </div>
   </section>
 
@@ -85,9 +68,9 @@ const projects = (await getCollection('projects', ({ data }) => !data.draft))
 
   <section class="section">
     <div class="wrap wrap-narrow">
-      <div class="nb-card" style="text-align: center; padding: 2.5rem 2rem;">
+      <div class="nb-card" style="text-align: center; padding: 1.4rem 1.2rem;">
         <h2 style="margin-bottom: 0.5em;">{settings.ctaTitle}</h2>
-        <p style="color: var(--muted); margin-bottom: 1.5rem;">
+        <p style="color: var(--muted); margin-bottom: 0.9rem;">
           {settings.ctaText}
         </p>
         <a class="btn btn-blue" href={settings.ctaButtonHref}>{settings.ctaButtonLabel}</a>
