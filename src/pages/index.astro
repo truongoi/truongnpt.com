@@ -16,7 +16,7 @@ const projects = (await getCollection('projects', ({ data }) => !data.draft))
 >
   <section class="hero">
     <div class="wrap hero-grid">
-      <div>
+      <div class="hero-text">
         <div class="hero-eyebrow">
           <span class="badge badge-blue">{settings.heroEyebrow}</span>
         </div>
@@ -24,15 +24,15 @@ const projects = (await getCollection('projects', ({ data }) => !data.draft))
         <p class="lead">
           {settings.heroLead}
         </p>
-        <div class="hero-cta">
-          <a class="btn btn-green" href={settings.heroCtaPrimaryHref}>{settings.heroCtaPrimaryLabel}</a>
-          <a class="btn" href={settings.heroCtaSecondaryHref}>{settings.heroCtaSecondaryLabel}</a>
-        </div>
       </div>
       <figure class="avatar-card">
         <img src={settings.heroImage} alt={settings.heroName} width="800" height="800" />
         <figcaption>{settings.heroCaption}</figcaption>
       </figure>
+      <div class="hero-cta">
+        <a class="btn btn-green" href={settings.heroCtaPrimaryHref}>{settings.heroCtaPrimaryLabel}</a>
+        <a class="btn" href={settings.heroCtaSecondaryHref}>{settings.heroCtaSecondaryLabel}</a>
+      </div>
     </div>
   </section>
 
