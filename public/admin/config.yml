@@ -62,7 +62,7 @@ collections:
   - name: pages
     label: Pages
     folder: src/content/pages
-    create: false
+    create: true
     extension: md
     format: frontmatter
     fields:
