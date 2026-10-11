@@ -2,11 +2,16 @@
 import Base from '../layouts/Base.astro';
 import { getCollection } from 'astro:content';
 import settings from '../site-settings.json';
-const siteConfig = { showProjects: settings.showProjects ?? true };
+import profileLinks from '../profile-links.json';
 
-const projects = (await getCollection('projects', ({ data }) => !data.draft))
+const posts = (await getCollection('posts', ({ data }) => !data.draft))
   .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
-  .slice(0, 3);
+  .slice(0, 4);
+
+const fmtDate = (d) =>
+  d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+const links = profileLinks.links.filter((l) => l.href !== '/');
 ---
 
 <Base
@@ -14,67 +19,85 @@ const projects = (await getCollection('projects', ({ data }) => !data.draft))
   description={settings.siteDescription}
   image="/images/og-image.jpg"
 >
-  <section class="hero">
-    <div class="wrap hero-grid">
-      <div class="hero-text">
-        <div class="hero-eyebrow">
-          <span class="badge badge-blue">{settings.heroEyebrow}</span>
+  <div class="wrap">
+    <div class="bento">
+      <section class="tile tile-span2 hero-tile">
+        <img
+          class="portrait"
+          src={settings.heroImage}
+          alt={settings.heroName}
+          width="220"
+          height="220"
+        />
+        <div class="hero-main">
+          <div class="hero-head">
+            <span class="badge badge-blue">{settings.heroEyebrow}</span>
+            <h1>{settings.heroName} <span class="highlight">{settings.heroNameHighlight}</span></h1>
+          </div>
+          <p class="hero-bio">{settings.heroLead}</p>
+          <div class="hero-cta">
+            <a class="btn btn-green" href={settings.heroCtaPrimaryHref}>{settings.heroCtaPrimaryLabel}</a>
+            <a class="btn" href={settings.heroCtaSecondaryHref}>{settings.heroCtaSecondaryLabel}</a>
+          </div>
         </div>
-        <h1>{settings.heroName} <span class="highlight">{settings.heroNameHighlight}</span></h1>
-        <p class="lead">
-          {settings.heroLead}
-        </p>
-      </div>
-      <figure class="avatar-card">
-        <img src={settings.heroImage} alt={settings.heroName} width="800" height="800" />
-        <figcaption>{settings.heroCaption}</figcaption>
-      </figure>
-      <div class="hero-cta">
-        <a class="btn btn-green" href={settings.heroCtaPrimaryHref}>{settings.heroCtaPrimaryLabel}</a>
-        <a class="btn" href={settings.heroCtaSecondaryHref}>{settings.heroCtaSecondaryLabel}</a>
-      </div>
-    </div>
-  </section>
+      </section>
 
-  {siteConfig.showProjects && projects.length > 0 && (
-    <section class="section">
-      <div class="wrap">
-        <div class="section-head">
-          <h2><span class="tick"></span>Projects</h2>
-          <a class="btn btn-sm" href="/projects/">All projects →</a>
-        </div>
-        <div class="project-grid">
-          {projects.map((p) => (
-            <a class="nb-card nb-card-hover post-card" href={`/prj/${p.id}/`}>
-              {p.data.heroImage && (
-                <div class="thumb">
-                  <img src={p.data.heroImage} alt={p.data.title} loading="lazy" />
-                </div>
-              )}
-              <div class="card-body">
-                <div class="meta">
-                  <span class="badge badge-blue">Project</span>
-                </div>
-                <h3>{p.data.title}</h3>
-                <p class="excerpt">{p.data.description}</p>
-                <span class="read-more">View <span class="arrow">→</span></span>
-              </div>
-            </a>
-          ))}
-        </div>
-      </div>
-    </section>
-  )}
+      <section class="tile tile-span2 tile-dark">
+        <span class="badge badge-yellow">Say hello</span>
+        <h3>{settings.ctaTitle}</h3>
+        <p>{settings.ctaText}</p>
+        <a class="btn" href={settings.ctaButtonHref}>{settings.ctaButtonLabel}</a>
+      </section>
 
-  <section class="section">
-    <div class="wrap wrap-narrow">
-      <div class="nb-card" style="text-align: center; padding: 1.4rem 1.2rem;">
-        <h2 style="margin-bottom: 0.5em;">{settings.ctaTitle}</h2>
-        <p style="color: var(--muted); margin-bottom: 0.9rem;">
-          {settings.ctaText}
-        </p>
-        <a class="btn btn-blue" href={settings.ctaButtonHref}>{settings.ctaButtonLabel}</a>
-      </div>
+      <section class="tile tile-span2">
+        <span class="badge badge-green">Writing</span>
+        <h3>Latest posts</h3>
+        {posts.map((post) => (
+          <div class="postrow">
+            <a href={`/p/${post.id}/`}>{post.data.title}</a>
+            <span class="d">{fmtDate(post.data.pubDate)}</span>
+          </div>
+        ))}
+        <a class="go" href="/blog/">All posts →</a>
+      </section>
+
+      <section class="tile tile-tint-a">
+        <span class="badge badge-blue">Building</span>
+        <h3>Dino Gửi Hàng Mỹ</h3>
+        <p>US → Vietnam package forwarding — order tracking, invoices and delivery, all on one site.</p>
+        <a class="go" href="https://guihangmy.com">guihangmy.com →</a>
+      </section>
+
+      <section class="tile tile-tint-b">
+        <span class="badge badge-pink">Building</span>
+        <h3>SheetQuire</h3>
+        <p>Printable planners &amp; smart spreadsheets for a calmer home — the Whole-Home Care system.</p>
+        <a class="go" href="https://www.etsy.com/shop/SheetQuire">Etsy shop →</a>
+      </section>
+
+      <section class="tile tile-span2 links-tile">
+        <span class="badge badge-yellow">Elsewhere</span>
+        <h3>Find me</h3>
+        {links.map((l) => (
+          <a href={l.href}>
+            <span class="lk">{l.badge} {l.label}</span>
+            <span class="sub">{l.sub}</span>
+          </a>
+        ))}
+      </section>
+
+      <section class="tile tile-span2">
+        <span class="badge badge-green">About</span>
+        <h3>I write about</h3>
+        <div class="topics-row">
+          <span class="badge">Code</span>
+          <span class="badge">Travel</span>
+          <span class="badge">Photography</span>
+          <span class="badge">Life</span>
+        </div>
+        <p>Notes from building for the web since the Ogilvy Vietnam days — in English and Vietnamese.</p>
+        <a class="go" href="/about/">More about me →</a>
+      </section>
     </div>
-  </section>
+  </div>
 </Base>
