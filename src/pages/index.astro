@@ -62,17 +62,17 @@ const links = profileLinks.links.filter((l) => l.href !== '/');
       </section>
 
       <section class="tile tile-tint-a">
-        <span class="badge badge-blue">Building</span>
-        <h3>Dino Gửi Hàng Mỹ</h3>
-        <p>US → Vietnam package forwarding — order tracking, invoices and delivery, all on one site.</p>
-        <a class="go" href="https://guihangmy.com">guihangmy.com →</a>
+        <span class="badge badge-blue">{settings.dinoBadge}</span>
+        <h3>{settings.dinoTitle}</h3>
+        <p>{settings.dinoText}</p>
+        <a class="go" href={settings.dinoLinkHref}>{settings.dinoLinkLabel}</a>
       </section>
 
       <section class="tile tile-tint-b">
-        <span class="badge badge-pink">Building</span>
-        <h3>SheetQuire</h3>
-        <p>Printable planners &amp; smart spreadsheets for a calmer home — the Whole-Home Care system.</p>
-        <a class="go" href="https://www.etsy.com/shop/SheetQuire">Etsy shop →</a>
+        <span class="badge badge-pink">{settings.sqBadge}</span>
+        <h3>{settings.sqTitle}</h3>
+        <p>{settings.sqText}</p>
+        <a class="go" href={settings.sqLinkHref}>{settings.sqLinkLabel}</a>
       </section>
 
       <section class="tile tile-span2 links-tile">
@@ -87,16 +87,15 @@ const links = profileLinks.links.filter((l) => l.href !== '/');
       </section>
 
       <section class="tile tile-span2">
-        <span class="badge badge-green">About</span>
-        <h3>I write about</h3>
+        <span class="badge badge-green">{settings.aboutBadge}</span>
+        <h3>{settings.aboutTitle}</h3>
         <div class="topics-row">
-          <span class="badge">Code</span>
-          <span class="badge">Travel</span>
-          <span class="badge">Photography</span>
-          <span class="badge">Life</span>
+          {settings.aboutTopics.map((t) => (
+            <span class="badge">{t}</span>
+          ))}
         </div>
-        <p>Notes from building for the web since the Ogilvy Vietnam days — in English and Vietnamese.</p>
-        <a class="go" href="/about/">More about me →</a>
+        <p>{settings.aboutText}</p>
+        <a class="go" href={settings.aboutLinkHref}>{settings.aboutLinkLabel}</a>
       </section>
     </div>
   </div>

@@ -1,1 +1,76 @@
-{"ctaButtonHref": "/contact/", "ctaButtonLabel": "Get in touch", "ctaText": "Questions, collabs, or just want to chat? My inbox is open.", "ctaTitle": "Say hello 👋", "footerAbout": "Personal blog of Truong Nguyen — front-end engineer. Thoughts on code, travel, photography and life, in English and Vietnamese.", "footerExploreLinks": [{"href": "/about/", "label": "About"}, {"href": "/contact/", "label": "Contact"}, {"href": "/links/", "label": "Profile links"}], "footerSocialLinks": [{"href": "https://www.linkedin.com/in/truong-nguyen-dev/", "label": "LinkedIn"}, {"href": "https://codepen.io/truongoi", "label": "CodePen"}, {"href": "https://github.com/truongoi", "label": "GitHub"}, {"href": "/rss.xml", "label": "RSS feed"}], "heroCaption": "that's me ✌️", "heroCtaPrimaryHref": "/blog/", "heroCtaPrimaryLabel": "Read the blog →", "heroCtaSecondaryHref": "/about/", "heroCtaSecondaryLabel": "About me", "heroEyebrow": "👋 Hello, I'm", "heroImage": "/images/portrait-illustrated.jpg", "heroLead": "Front-end engineer, ex-Ogilvy Vietnam. I write about code, travel, photography and life — in English and Vietnamese.", "heroName": "Truong", "heroNameHighlight": "Nguyen", "logoMark": "T", "logoText": "truongnpt.com", "showProjects": false, "siteDescription": "Personal blog of Truong Nguyen — front-end engineer. Thoughts on code, travel, photography and life.", "siteTitle": "Truong Nguyen", "contactFormEndpoint": "https://formspree.io/f/xrgawwgw"}
+{
+  "ctaButtonHref": "/contact/",
+  "ctaButtonLabel": "Get in touch",
+  "ctaText": "Questions, collabs, or just want to chat? My inbox is open.",
+  "ctaTitle": "Say hello 👋",
+  "footerAbout": "Personal blog of Truong Nguyen — front-end engineer. Thoughts on code, travel, photography and life, in English and Vietnamese.",
+  "footerExploreLinks": [
+    {
+      "href": "/about/",
+      "label": "About"
+    },
+    {
+      "href": "/contact/",
+      "label": "Contact"
+    },
+    {
+      "href": "/links/",
+      "label": "Profile links"
+    }
+  ],
+  "footerSocialLinks": [
+    {
+      "href": "https://www.linkedin.com/in/truong-nguyen-dev/",
+      "label": "LinkedIn"
+    },
+    {
+      "href": "https://codepen.io/truongoi",
+      "label": "CodePen"
+    },
+    {
+      "href": "https://github.com/truongoi",
+      "label": "GitHub"
+    },
+    {
+      "href": "/rss.xml",
+      "label": "RSS feed"
+    }
+  ],
+  "heroCaption": "that's me ✌️",
+  "heroCtaPrimaryHref": "/blog/",
+  "heroCtaPrimaryLabel": "Read the blog →",
+  "heroCtaSecondaryHref": "/about/",
+  "heroCtaSecondaryLabel": "About me",
+  "heroEyebrow": "👋 Hello, I'm",
+  "heroImage": "/images/portrait-illustrated.jpg",
+  "heroLead": "Front-end engineer, ex-Ogilvy Vietnam. I write about code, travel, photography and life — in English and Vietnamese.",
+  "heroName": "Truong",
+  "heroNameHighlight": "Nguyen",
+  "logoMark": "T",
+  "logoText": "truongnpt.com",
+  "showProjects": false,
+  "siteDescription": "Personal blog of Truong Nguyen — front-end engineer. Thoughts on code, travel, photography and life.",
+  "siteTitle": "Truong Nguyen",
+  "contactFormEndpoint": "https://formspree.io/f/xrgawwgw",
+  "dinoBadge": "Building",
+  "dinoTitle": "Dino Gửi Hàng Mỹ",
+  "dinoText": "US → Vietnam package forwarding — order tracking, invoices and delivery, all on one site.",
+  "dinoLinkLabel": "guihangmy.com →",
+  "dinoLinkHref": "https://guihangmy.com",
+  "sqBadge": "Building",
+  "sqTitle": "SheetQuire",
+  "sqText": "Printable planners & smart spreadsheets for a calmer home — the Whole-Home Care system.",
+  "sqLinkLabel": "Etsy shop →",
+  "sqLinkHref": "https://www.etsy.com/shop/SheetQuire",
+  "aboutBadge": "About",
+  "aboutTitle": "I write about",
+  "aboutTopics": [
+    "Code",
+    "Travel",
+    "Photography",
+    "Life"
+  ],
+  "aboutText": "Notes from building for the web since the Ogilvy Vietnam days — in English and Vietnamese.",
+  "aboutLinkLabel": "More about me →",
+  "aboutLinkHref": "/about/"
+}

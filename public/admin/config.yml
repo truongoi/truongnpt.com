@@ -97,6 +97,22 @@ collections:
           - { label: CTA Text, name: ctaText, widget: text }
           - { label: CTA Button Label, name: ctaButtonLabel, widget: string }
           - { label: CTA Button Link, name: ctaButtonHref, widget: string }
+          - { label: Dino Tile Badge, name: dinoBadge, widget: string, hint: "Homepage Dino tile" }
+          - { label: Dino Tile Title, name: dinoTitle, widget: string }
+          - { label: Dino Tile Text, name: dinoText, widget: text }
+          - { label: Dino Tile Link Label, name: dinoLinkLabel, widget: string }
+          - { label: Dino Tile Link URL, name: dinoLinkHref, widget: string }
+          - { label: SheetQuire Tile Badge, name: sqBadge, widget: string, hint: "Homepage SheetQuire tile" }
+          - { label: SheetQuire Tile Title, name: sqTitle, widget: string }
+          - { label: SheetQuire Tile Text, name: sqText, widget: text }
+          - { label: SheetQuire Tile Link Label, name: sqLinkLabel, widget: string }
+          - { label: SheetQuire Tile Link URL, name: sqLinkHref, widget: string }
+          - { label: About Tile Badge, name: aboutBadge, widget: string, hint: "Homepage 'I write about' tile" }
+          - { label: About Tile Title, name: aboutTitle, widget: string }
+          - { label: About Tile Topics, name: aboutTopics, widget: list }
+          - { label: About Tile Text, name: aboutText, widget: text }
+          - { label: About Tile Link Label, name: aboutLinkLabel, widget: string }
+          - { label: About Tile Link URL, name: aboutLinkHref, widget: string }
           - { label: Footer About, name: footerAbout, widget: text }
           - label: Footer Explore Links
             name: footerExploreLinks
