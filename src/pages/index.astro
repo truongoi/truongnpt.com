@@ -22,13 +22,15 @@ const links = profileLinks.links.filter((l) => l.href !== '/');
   <div class="wrap">
     <div class="bento">
       <section class="tile tile-span2 hero-tile">
-        <img
-          class="portrait"
-          src={settings.heroImage}
-          alt={settings.heroName}
-          width="220"
-          height="220"
-        />
+        {settings.heroImage && (
+          <img
+            class="portrait"
+            src={settings.heroImage}
+            alt={settings.heroName}
+            width="220"
+            height="220"
+          />
+        )}
         <div class="hero-main">
           <div class="hero-head">
             <span class="badge badge-blue">{settings.heroEyebrow}</span>

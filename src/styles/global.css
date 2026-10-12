@@ -624,10 +624,10 @@ h1, h2, h3, h4 {
 .tile-dark .btn { background: #8A5A33; color: #FFF8EC; border-color: #FDF6EC; box-shadow: none; margin-top: 0.8rem; }
 .hero-tile { display: flex; gap: 1.1rem; align-items: center; }
 .hero-tile .portrait {
-  width: 110px; height: 110px; flex: none;
+  width: 110px; height: 110px; flex: none; order: 2;
   border: var(--border-thin); border-radius: 10px; object-fit: cover; display: block;
 }
-.hero-main { min-width: 0; }
+.hero-main { min-width: 0; order: 1; }
 .hero-tile h1 { font-size: 2.1rem; margin: 0.35rem 0 0.4rem; }
 .hero-tile .hero-bio { max-width: 36rem; }
 .hero-tile .hero-cta { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 0.8rem; }
@@ -651,8 +651,8 @@ h1, h2, h3, h4 {
   .bento { grid-template-columns: 1fr 1fr; gap: 0.8rem; padding-top: 1.1rem; }
   .hero-tile {
     display: grid;
-    grid-template-columns: auto minmax(0, 1fr);
-    grid-template-areas: "img head" "bio bio" "cta cta";
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas: "head img" "bio bio" "cta cta";
     gap: 0.55rem 0.8rem;
     align-items: center;
   }
